@@ -1,25 +1,24 @@
-import express from "express";
-import data1 from "./singers.json" assert {type: "json"};
-// console.log(data1);
-const { singers } = data1;
-
-console.log(singers);
+// import express from "express";
+const express = require("express");
+// import data1 from "./singers.json" assert {type: "json"};
+// const { singers } = data1;
+const { singers } = require("./singers.json");
 
 const app = express();
 
 app.get("/", (req, res) => {
-    res.send("網站首頁");
-})
+  res.send("網站首頁");
+});
 
 // /singer/:id.html
 app.get("/singer/:id.html", (req, res) => {
-    const { id } = req.params;
-    let result = singers.find(singer => singer.id === parseInt(id));
-    if (!result) {
-        res.status(404).send("<h1>找不到歌手</h1>");
-        return false;
-    }
-    res.send(`<!DOCTYPE html>
+  const { id } = req.params;
+  let result = singers.find((singer) => singer.id === parseInt(id));
+  if (!result) {
+    res.status(404).send("<h1>找不到歌手</h1>");
+    return false;
+  }
+  res.send(`<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -31,10 +30,9 @@ app.get("/singer/:id.html", (req, res) => {
         <img src="${result.singer_img}">
     </body>
     </html>`);
-    // res.json(result);
+  // res.json(result);
 });
 
-
 app.listen(3000, () => {
-    console.log("running at http://localhost:3000");
-})
+  console.log("running at http://localhost:3000");
+});
